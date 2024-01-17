@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'chmod u+x apache-tomcat-8.5.98/'
+                sh 'chmod u+x /opt/apache-tomcat-8.5.98/'
                 sh 'cp /home/slave2/workspace/pipeline_job_1/target/hello-world-war-1.0.0.war /opt/apache-tomcat-8.5.98/webapps'
             }
         }

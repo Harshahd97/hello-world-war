@@ -7,22 +7,16 @@ pipeline {
                 sh 'git clone https://github.com/Harshahd97/hello-world-war.git'
             }
         }
-        stage('Run Locally') {
-        steps {
-            script {
-                sh "java -jar target/hello-world-war-1.0.0.war &"
-                sleep 30
-            }
         stage('Build') {
             steps {
-                sh 'mvn --version'
-                sh 'mvn clean install'
+                dir("hello-world-war")
+                sh 'docker run -t maven-build .'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'ssh root@172.31.28.191'
-                sh 'scp /home/slave2/workspace/pipeline_job_1/target/hello-world-war-1.0.0.war root@172.31.28.191:/opt/apache-tomcat-8.5.98/webapps/'
+                sh 'rm -rf maven-build'
+                sh 'docker run -d -p 8085:8080 --name tomcat-container maven-build'
             }
         }
     } 

@@ -9,14 +9,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                dir("hello-world-war")
-                sh 'docker build -t maven-build .'
+                sh 'echo "inside build"'
+                dir("hello-world-war") {
+                sh 'echo "inside dir"'    
+                sh 'docker build -t tomcat-file:1.0 .'
             }
         }
+    }
         stage('Deploy') {
             steps {
-                sh 'rm -rf maven-build'
-                sh 'docker run -d -p 8085:8080 --name tomcat-container maven-build'
+                sh 'docker rm -f tomcat-file'
+                sh 'docker run -d -p 8085:8080 --name tomcat-container tomcat-file:1.0'
             }
         }
     } 

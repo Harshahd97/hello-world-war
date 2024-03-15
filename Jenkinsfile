@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("hello-world-war")
-                sh 'docker run -t maven-build .'
+                sh 'docker build -t maven-build .'
             }
         }
         stage('Deploy') {

@@ -16,7 +16,7 @@ pipeline {
                 sh 'echo "inside build"'
                 dir("hello-world-war") {
                 sh 'echo "inside dir"'    
-                sh 'docker build -t tomcat-file:$BUILD_NUMBER .'
+                sh 'docker build -t tomcat-file:${BUILD_NUMBER} .'
 				}
 			}
 		}
@@ -29,9 +29,9 @@ pipeline {
 		}               
 		stage('Push Image to Docker Hub') {         
 			steps{  
-				sh 'docker tag tomcat-file:$BUILD_NUMBER harshahd18/newrepo_20_03:$BUILD_NUMBER
-				sh 'docker push harshahd18/newrepo_20_03:$BUILD_NUMBER'                 
-				echo 'Push Image Completed'       
+				sh 'docker tag tomcat-file:${BUILD_NUMBER} harshahd18/newrepo_20_03:${BUILD_NUMBER}
+				sh 'docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}'                 
+				echo 'Image pushing completed..'       
 			}           
 		}
 	}

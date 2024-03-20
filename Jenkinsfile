@@ -16,21 +16,22 @@ pipeline {
                 sh 'echo "inside build"'
                 dir("hello-world-war") {
                 sh 'echo "inside dir"'    
-                sh 'docker build -t tomcat-file:$BUILD_NUMBER .'
+                sh 'docker build -t tomcat-file:${BUILD_NUMBER} .'
 				}
 			}
 		}
 		
         stage('Login to Docker Hub') {         
 			steps{                            
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
 				echo 'Login Completed'                
 			}           
 		}               
 		stage('Push Image to Docker Hub') {         
-			steps{                            
-				sh "sudo docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}"  
-				echo 'Push Image Completed'       
+			steps{  
+				sh "docker tag tomcat-file:${BUILD_NUMBER} harshahd18/newrepo_20_03:${BUILD_NUMBER}"
+				sh "docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}"                 
+				echo 'Image pushing completed..'       
 			}           
 		}
 		stage('Pull Image and Deploy') {

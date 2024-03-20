@@ -29,7 +29,7 @@ pipeline {
 		}               
 		stage('Push Image to Docker Hub') {         
 			steps{                            
-				sh 'sudo docker push harshahd18/newrepo_20_03:$BUILD_NUMBER'  
+				sh "sudo docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}"  
 				echo 'Push Image Completed'       
 			}           
 		}

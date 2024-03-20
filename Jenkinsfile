@@ -29,8 +29,8 @@ pipeline {
 		}               
 		stage('Push Image to Docker Hub') {         
 			steps{  
-				sh 'docker tag tomcat-file:${BUILD_NUMBER} harshahd18/newrepo_20_03:${BUILD_NUMBER}
-				sh 'docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}'                 
+				sh "docker tag tomcat-file:${BUILD_NUMBER} harshahd18/newrepo_20_03:${BUILD_NUMBER}"
+				sh "docker push harshahd18/newrepo_20_03:${BUILD_NUMBER}"                 
 				echo 'Image pushing completed..'       
 			}           
 		}

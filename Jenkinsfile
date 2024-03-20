@@ -35,7 +35,7 @@ pipeline {
 			}           
 		}
 		stage('Pull Image and Deploy') {
-            agent any
+            agent { label 'slave2' }
             steps {
                 sh "docker pull harshahd18/newrepo_20_03:${BUILD_NUMBER}"
                 sh "docker run -d --name my_container -p 8085:8080 harshahd18/newrepo_20_03:${BUILD_NUMBER}"

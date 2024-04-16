@@ -36,22 +36,10 @@ pipeline {
             }           
         }
         
-        stage('Pull and Deploy') {
-            parallel {
-                stage('Deploy to node1') {
-                    agent { label 'node1' }
-                    steps {
-                        sh "docker pull harshahd18/newrepo_20_03:${BUILD_NUMBER}"
-                        sh "docker run -d --name my_container_1 -p 8085:8080 harshahd18/newrepo_20_03:${BUILD_NUMBER}"
-                    }
-                }
-                stage('Deploy to slave2') {
-                    agent { label 'slave2' }
-                    steps {
-                        sh "docker pull harshahd18/newrepo_20_03:${BUILD_NUMBER}"
-                        sh "docker run -d --name my_container_2 -p 8086:8080 harshahd18/newrepo_20_03:${BUILD_NUMBER}"
-                    }
-                }
+        stage ('Helm Deploy') {
+            steps {
+                echo 'Deploying to Kubernetes using Helm'
+                sh "helm upgrade --install hello-world-war --namespace hello-world-war --set image.tag=$BUILD_NUMBER"
             }
         }
     }

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentName }}
+  labels:
+    app: {{ .Values.appLabel }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appLabel }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appLabel }}
+    spec:
+      securityContext:
+        fsGroup: 1000 
+        runAsUser: 0
+      containers:
+        - name: {{ .Values.appLabel }}
+          image: tomcat:{{ .Values.tag }}
+          env:
+            - name: TOMCAT_OPTS
+              value: --prefix=/tomcat          
+          volumeMounts: 
+            - name: {{ .Values.volumeName }}
+              mountPath: /usr/local/tomcat/webapps            
+      volumes:
+        - name: {{ .Values.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.claimName }}

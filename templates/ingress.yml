@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.deploymentName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /tomcat
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.deploymentName }}
+            port:
+              number: 8085

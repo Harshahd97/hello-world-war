@@ -1,9 +1,9 @@
-namespace:
-storageClass:
-claimName: 
-requestStorage: 
-deploymentName: 
-appLabel: 
-replicas: 
-tag: 
-volumeName: 
+namespace: "tomcat"
+storageClass: "tomcat-storage"
+claimName: "tomcat-claim"
+requestStorage: "3Gi"
+deploymentName: "my-tomcat"
+appLabel: "tomcat"
+replicas: 2
+volumeName: "tomcat-volume"
+tag: ${BUILD_NUMBER}

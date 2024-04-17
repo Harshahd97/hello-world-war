@@ -7,3 +7,4 @@ appLabel: "tomcat"
 replicas: 2
 volumeName: "tomcat-volume"
 tag: ${BUILD_NUMBER}
+image: "harshahd18/newrepo_20_03"

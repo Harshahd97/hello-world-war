@@ -1,5 +1,5 @@
 apiVersion: v2
-name: tomcat
+name: hello-world-war
 description: A Helm chart for tomcat
 
 # A chart can be either an 'application' or a 'library' chart.

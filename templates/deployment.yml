@@ -24,7 +24,7 @@ spec:
         - name: {{ .Values.deploymentLabel }}
           image: {{ .Values.imageName }}:{{ .Values.image.tag }}
       imagePullSecrets:
-        - name: tomcat-secret
+        - name: tomcatsecret
           env:
             - name: TOMCAT_OPTS
               value: --prefix=/tomcat

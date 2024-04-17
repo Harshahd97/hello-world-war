@@ -39,7 +39,7 @@ pipeline {
         stage ('Helm Deploy') {
             steps {
                 echo 'Deploying to Kubernetes using Helm'
-                sh "helm upgrade --install hello-world-war --namespace hello-world-war --set image.tag=$BUILD_NUMBER"
+                sh "helm upgrade --install hello-world-war ./tomcat --namespace hello-world-war --set image.tag=$BUILD_NUMBER"
             }
         }
     }
